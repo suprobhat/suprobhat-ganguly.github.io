@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Suprobhat Ganguly — DevSecOps Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --white: #ffffff;
+    --ink: #0f0f0f;
+    --ink2: #2c2c2c;
+    --muted: #6b7280;
+    --light: #f3f3f0;
+    --border: #e5e5e0;
+    --accent: #1a3a5c;
+    --accent-light: #eef3f8;
+    --gold: #b8972a;
+    --green: #1a6b45;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; font-size: 16px; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(250,250,248,0.96);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0 7vw;
+    height: 64px;
+  }
+  .nav-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem; font-weight: 600;
+    color: var(--accent); letter-spacing: 0.01em;
+  }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.78rem; font-weight: 500;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--muted); text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  header {
+    padding: 140px 7vw 100px;
+    max-width: 1280px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 6rem; align-items: center;
+  }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 0.72rem; font-weight: 600;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-light);
+    border: 1px solid rgba(26,58,92,0.15);
+    padding: 6px 14px; border-radius: 2px;
+    margin-bottom: 2rem;
+  }
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 5vw, 4.2rem);
+    font-weight: 700; line-height: 1.1;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    margin-bottom: 1.5rem;
+  }
+  h1 em { font-style: italic; color: var(--accent); }
+  .hero-desc {
+    font-size: 0.95rem; font-weight: 300;
+    color: var(--muted); line-height: 1.85;
+    max-width: 440px; margin-bottom: 2.5rem;
+  }
+  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 12px 26px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.78rem; font-weight: 600;
+    letter-spacing: 0.05em; text-transform: uppercase;
+    text-decoration: none; border-radius: 2px;
+    transition: all 0.22s;
+  }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { background: #0f2540; }
+  .btn-secondary { background: transparent; color: var(--ink); border: 1px solid var(--border); }
+  .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+  .hero-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+  }
+  .hero-card-header {
+    background: var(--accent);
+    padding: 2rem 2.5rem;
+  }
+  .hero-card-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem; font-weight: 600; color: #fff;
+    margin-bottom: 0.3rem;
+  }
+  .hero-card-title {
+    font-size: 0.78rem; font-weight: 400;
+    color: rgba(255,255,255,0.7); letter-spacing: 0.08em;
+  }
+  .stat-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.1rem 2.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .stat-row:last-child { border-bottom: none; }
+  .stat-label-r { font-size: 0.75rem; color: var(--muted); }
+  .stat-value-r {
+    font-size: 0.85rem; font-weight: 600; color: var(--ink);
+    font-family: 'Playfair Display', serif;
+  }
+  .stat-value-r.green { color: var(--green); }
+
+  .divider { border: none; border-top: 1px solid var(--border); max-width: 1280px; margin: 0 auto; }
+
+  .section-wrap { max-width: 1280px; margin: 0 auto; padding: 80px 7vw; }
+  .section-header {
+    display: flex; align-items: baseline; gap: 1.5rem;
+    margin-bottom: 3rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid var(--ink);
+  }
+  .section-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.9rem; color: var(--muted); font-style: italic;
+  }
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+    font-weight: 700; color: var(--ink); letter-spacing: -0.01em;
+  }
+
+  .skills-layout {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 0; border: 1px solid var(--border);
+  }
+  .skill-cell {
+    padding: 2rem 2.2rem;
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    transition: background 0.2s;
+  }
+  .skill-cell:hover { background: var(--light); }
+  .skill-cell:nth-child(3n) { border-right: none; }
+  .skill-cell:nth-last-child(-n+3) { border-bottom: none; }
+  .skill-cat {
+    font-size: 0.65rem; font-weight: 700;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 1rem;
+  }
+  .skill-list { display: flex; flex-wrap: wrap; gap: 7px; }
+  .pill {
+    padding: 4px 12px;
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: 100px;
+    font-size: 0.72rem; font-weight: 500; color: var(--ink2);
+    transition: all 0.18s;
+  }
+  .skill-cell:hover .pill { border-color: var(--accent); }
+
+  .exp-block {
+    display: grid; grid-template-columns: 220px 1fr;
+    gap: 4rem; padding: 3rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .exp-block:last-child { border-bottom: none; }
+  .exp-period {
+    font-size: 0.72rem; font-weight: 600;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 0.5rem;
+  }
+  .exp-co {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem; font-weight: 600; color: var(--ink); margin-bottom: 0.3rem;
+  }
+  .exp-loc { font-size: 0.72rem; color: var(--muted); }
+  .exp-badge {
+    display: inline-block; margin-top: 0.8rem;
+    padding: 3px 10px;
+    background: var(--accent-light); border: 1px solid rgba(26,58,92,0.18);
+    border-radius: 100px;
+    font-size: 0.65rem; font-weight: 600;
+    letter-spacing: 0.08em; color: var(--accent);
+  }
+  .exp-role {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem; font-weight: 700;
+    color: var(--ink); margin-bottom: 1.5rem;
+  }
+  .exp-bullets { list-style: none; }
+  .exp-bullets li {
+    display: flex; gap: 14px;
+    font-size: 0.85rem; color: var(--muted); line-height: 1.75;
+    padding: 0.5rem 0; border-bottom: 1px solid var(--border);
+  }
+  .exp-bullets li:last-child { border-bottom: none; }
+  .exp-bullets li::before { content: '—'; color: var(--accent); flex-shrink: 0; font-weight: 600; }
+
+  .projects-table { width: 100%; border-collapse: collapse; }
+  .projects-table thead tr { border-bottom: 2px solid var(--ink); }
+  .projects-table th {
+    font-size: 0.65rem; font-weight: 700;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--muted); padding: 0 1.5rem 1rem 0; text-align: left;
+  }
+  .projects-table tbody tr { border-bottom: 1px solid var(--border); transition: background 0.2s; }
+  .projects-table tbody tr:hover { background: var(--light); }
+  .projects-table td { padding: 1.6rem 1.5rem 1.6rem 0; vertical-align: top; }
+  .proj-num { font-family: 'Playfair Display', serif; font-size: 0.85rem; color: var(--muted); font-style: italic; }
+  .proj-name { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 600; color: var(--ink); margin-bottom: 0.35rem; }
+  .proj-summary { font-size: 0.8rem; color: var(--muted); line-height: 1.7; max-width: 380px; }
+  .proj-duration { font-size: 0.72rem; font-weight: 500; color: var(--muted); white-space: nowrap; }
+  .proj-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip {
+    padding: 3px 10px; background: var(--accent-light);
+    border-radius: 100px;
+    font-size: 0.65rem; font-weight: 600; color: var(--accent);
+  }
+
+  .certs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.5rem; }
+  .cert-card {
+    border: 1px solid var(--border); padding: 2rem; border-radius: 4px;
+    background: var(--white); transition: box-shadow 0.2s, border-color 0.2s;
+    position: relative; overflow: hidden;
+  }
+  .cert-card:hover { box-shadow: 0 6px 24px rgba(0,0,0,0.07); border-color: var(--accent); }
+  .cert-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: var(--accent); border-radius: 4px 4px 0 0;
+    transform: scaleX(0); transform-origin: left; transition: transform 0.3s;
+  }
+  .cert-card:hover::before { transform: scaleX(1); }
+  .cert-issuer { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.6rem; }
+  .cert-name { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 600; color: var(--ink); margin-bottom: 0.8rem; line-height: 1.4; }
+  .cert-status { font-size: 0.72rem; font-weight: 500; display: flex; align-items: center; gap: 6px; }
+  .cert-status.valid { color: var(--green); }
+  .cert-status.expired { color: var(--muted); }
+  .cert-status::before { content: ''; width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+  .cert-status.valid::before { background: var(--green); }
+  .cert-status.expired::before { background: var(--muted); }
+
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; }
+  .contact-intro { font-size: 0.92rem; font-weight: 300; color: rgba(255,255,255,0.75); line-height: 1.9; margin-bottom: 2rem; }
+  .contact-item {
+    display: flex; align-items: center; gap: 14px;
+    padding: 1rem 0; border-bottom: 1px solid rgba(255,255,255,0.1);
+    font-size: 0.85rem;
+  }
+  .c-icon {
+    width: 36px; height: 36px;
+    border: 1px solid rgba(255,255,255,0.2); border-radius: 2px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.9rem; flex-shrink: 0; color: #fff;
+  }
+  .contact-item a { color: #fff; text-decoration: none; }
+  .contact-item a:hover { opacity: 0.75; }
+  .contact-item span { color: rgba(255,255,255,0.7); }
+  .contact-right-title { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 700; color: #fff; margin-bottom: 1rem; line-height: 1.3; }
+  .contact-right-sub { font-size: 0.82rem; color: rgba(255,255,255,0.6); line-height: 1.8; margin-bottom: 2rem; }
+  .avail-row { display: flex; align-items: center; gap: 10px; margin-bottom: 2.5rem; font-size: 0.78rem; color: rgba(255,255,255,0.8); font-weight: 500; }
+  .avail-dot { width: 9px; height: 9px; background: #4ade80; border-radius: 50%; animation: pulse 2s infinite; flex-shrink: 0; }
+  @keyframes pulse { 0%,100% { box-shadow: 0 0 0 0 rgba(74,222,128,0.4); } 50% { box-shadow: 0 0 0 8px rgba(74,222,128,0); } }
+  .btn-white {
+    background: #fff; color: var(--accent);
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 13px 28px; font-size: 0.78rem; font-weight: 700;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    text-decoration: none; border-radius: 2px; transition: all 0.2s;
+  }
+  .btn-white:hover { background: var(--bg); }
+
+  footer {
+    border-top: 1px solid var(--border); background: var(--white);
+    padding: 1.5rem 7vw;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 0.72rem; color: var(--muted);
+  }
+
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.65s ease, transform 0.65s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  @media (max-width: 900px) {
+    header { grid-template-columns: 1fr; padding-top: 100px; }
+    .hero-card { display: none; }
+    .skills-layout { grid-template-columns: 1fr 1fr; }
+    .skill-cell:nth-child(2n) { border-right: none; }
+    .skill-cell:nth-child(3n) { border-right: 1px solid var(--border); }
+    .exp-block { grid-template-columns: 1fr; gap: 1.5rem; }
+    .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  }
+  @media (max-width: 600px) {
+    .skills-layout { grid-template-columns: 1fr; }
+    .skill-cell { border-right: none; }
+    .nav-links { display: none; }
+    .projects-table thead { display: none; }
+    .projects-table td { display: block; padding: 0.3rem 0; }
+    .projects-table tbody tr { display: block; padding: 1.5rem 0; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">Suprobhat Ganguly</div>
+  <ul class="nav-links">
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#certifications">Certifications</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<header>
+  <div class="hero-left">
+    <div class="hero-eyebrow">DevSecOps Engineer · 4+ Years</div>
+    <h1>Securing &amp; Scaling<br/><em>Cloud Infrastructure</em></h1>
+    <p class="hero-desc">
+      Specialising in CI/CD automation, AWS cloud architecture, Kubernetes orchestration,
+      and Infrastructure as Code. AWS Certified SysOps Administrator &amp; HashiCorp Terraform Associate.
+    </p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn btn-primary">Get in Touch →</a>
+      <a href="#projects" class="btn btn-secondary">View Projects</a>
+    </div>
+  </div>
+
+  <div class="hero-card reveal">
+    <div class="hero-card-header">
+      <div class="hero-card-name">Suprobhat Ganguly</div>
+      <div class="hero-card-title">DevSecOps / Cloud Engineer · Inadev India Pvt Ltd</div>
+    </div>
+    <div class="stat-row"><span class="stat-label-r">Experience</span><span class="stat-value-r">4+ Years</span></div>
+    <div class="stat-row"><span class="stat-label-r">Primary Cloud</span><span class="stat-value-r">AWS (SysOps Certified)</span></div>
+    <div class="stat-row"><span class="stat-label-r">IaC</span><span class="stat-value-r">Terraform Certified</span></div>
+    <div class="stat-row"><span class="stat-label-r">Containers</span><span class="stat-value-r">Kubernetes / Docker</span></div>
+    <div class="stat-row"><span class="stat-label-r">Location</span><span class="stat-value-r">Pune, India</span></div>
+    <div class="stat-row"><span class="stat-label-r">Status</span><span class="stat-value-r green">Open to Opportunities</span></div>
+  </div>
+</header>
+
+<hr class="divider"/>
+
+<!-- SKILLS -->
+<section id="skills" style="background: var(--white); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+  <div class="section-wrap">
+    <div class="section-header reveal">
+      <span class="section-number">01</span>
+      <h2>Technical Skills</h2>
+    </div>
+    <div class="skills-layout reveal">
+      <div class="skill-cell">
+        <div class="skill-cat">Cloud Platforms</div>
+        <div class="skill-list">
+          <span class="pill">AWS</span><span class="pill">VPC</span><span class="pill">EC2</span>
+          <span class="pill">ECS</span><span class="pill">EKS</span><span class="pill">S3</span>
+          <span class="pill">RDS</span><span class="pill">DynamoDB</span><span class="pill">IAM</span>
+          <span class="pill">Route53</span><span class="pill">CloudFront</span>
+          <span class="pill">Azure</span><span class="pill">GCP</span>
+        </div>
+      </div>
+      <div class="skill-cell">
+        <div class="skill-cat">CI/CD &amp; Delivery</div>
+        <div class="skill-list">
+          <span class="pill">Jenkins</span><span class="pill">Azure DevOps</span>
+          <span class="pill">AWS CodeBuild</span><span class="pill">Argo CD</span>
+          <span class="pill">Spinnaker</span><span class="pill">GitOps</span>
+        </div>
+      </div>
+      <div class="skill-cell">
+        <div class="skill-cat">Containers &amp; Orchestration</div>
+        <div class="skill-list">
+          <span class="pill">Kubernetes</span><span class="pill">Docker</span>
+          <span class="pill">EKS</span><span class="pill">AKS</span>
+          <span class="pill">Helm</span><span class="pill">Karpenter</span>
+        </div>
+      </div>
+      <div class="skill-cell">
+        <div class="skill-cat">Infrastructure as Code</div>
+        <div class="skill-list">
+          <span class="pill">Terraform</span><span class="pill">AWS CloudFormation</span>
+        </div>
+      </div>
+      <div class="skill-cell">
+        <div class="skill-cat">Monitoring &amp; Observability</div>
+        <div class="skill-list">
+          <span class="pill">Prometheus</span><span class="pill">Grafana</span>
+        </div>
+      </div>
+      <div class="skill-cell">
+        <div class="skill-cat">Security</div>
+        <div class="skill-list">
+          <span class="pill">SonarQube</span><span class="pill">DevSecOps</span>
+          <span class="pill">IAM Policies</span><span class="pill">Security Gates</span>
+        </div>
+      </div>
+      <div class="skill-cell">
+        <div class="skill-cat">Databases</div>
+        <div class="skill-list">
+          <span class="pill">PostgreSQL</span><span class="pill">MySQL</span>
+          <span class="pill">MongoDB</span><span class="pill">Couchbase</span>
+          <span class="pill">Redis</span>
+        </div>
+      </div>
+      <div class="skill-cell">
+        <div class="skill-cat">Messaging</div>
+        <div class="skill-list">
+          <span class="pill">Apache Kafka</span><span class="pill">ZooKeeper</span>
+        </div>
+      </div>
+      <div class="skill-cell">
+        <div class="skill-cat">Scripting</div>
+        <div class="skill-list">
+          <span class="pill">Bash / Shell</span><span class="pill">Python</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-wrap">
+    <div class="section-header reveal">
+      <span class="section-number">02</span>
+      <h2>Work Experience</h2>
+    </div>
+    <div class="exp-block reveal">
+      <div class="exp-meta">
+        <div class="exp-period">Sep 2021 — Present</div>
+        <div class="exp-co">Inadev India Pvt Ltd</div>
+        <div class="exp-loc">Pune, India</div>
+        <div class="exp-badge">Full-time</div>
+      </div>
+      <div class="exp-content">
+        <div class="exp-role">DevSecOps / Cloud Engineer</div>
+        <ul class="exp-bullets">
+          <li>Designed and implemented cloud-native, microservices, and serverless architectures on AWS using Terraform and CloudFormation, adhering to security best practices.</li>
+          <li>Built and maintained CI/CD pipelines using Jenkins, AWS CodeDeploy, Azure DevOps, Argo CD, and Spinnaker for zero-downtime deployments.</li>
+          <li>Managed and optimised Amazon EKS and Azure AKS clusters including version upgrades, autoscaling, and node pool optimisation using Karpenter.</li>
+          <li>Implemented GitOps workflows with Argo CD for consistent, auditable Kubernetes deployments across development, testing, and production environments.</li>
+          <li>Integrated SonarQube for static code analysis, quality gates, and security scanning across CI/CD pipelines.</li>
+          <li>Built end-to-end observability with Prometheus and Grafana covering application, database, and cluster-level monitoring and alerting.</li>
+          <li>Administered PostgreSQL, MySQL, MongoDB, and Couchbase databases; handled migrations, upgrades, access control, backups, and performance tuning with minimal downtime.</li>
+          <li>Designed and operated Apache Kafka and ZooKeeper clusters for high-throughput, event-driven message streaming architectures.</li>
+          <li>Automated operational workflows using Bash and Python scripting, improving delivery efficiency and reliability.</li>
+          <li>Drove infrastructure cost optimisation through right-sizing, utilisation analysis, and continuous performance monitoring.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" style="background: var(--white); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+  <div class="section-wrap">
+    <div class="section-header reveal">
+      <span class="section-number">03</span>
+      <h2>Key Projects</h2>
+    </div>
+    <div class="reveal">
+      <table class="projects-table">
+        <thead>
+          <tr>
+            <th style="width:60px">#</th>
+            <th>Project</th>
+            <th style="width:110px">Duration</th>
+            <th>Technologies</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="proj-num">01.</span></td>
+            <td>
+              <div class="proj-name">INFIN8V2</div>
+              <div class="proj-summary">Digital Identity Verification Platform for US &amp; Canada — multi-ID verification covering Passports, Driving Licenses, and Green Cards.</div>
+            </td>
+            <td><span class="proj-duration">12 months</span></td>
+            <td>
+              <div class="proj-chips">
+                <span class="chip">EKS</span><span class="chip">Kafka</span><span class="chip">PostgreSQL</span>
+                <span class="chip">Couchbase</span><span class="chip">Jenkins</span><span class="chip">Argo CD</span>
+                <span class="chip">Terraform</span><span class="chip">Prometheus</span>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td><span class="proj-num">02.</span></td>
+            <td>
+              <div class="proj-name">SOUCS</div>
+              <div class="proj-summary">Tax Filing Decision Support Tool — CI/CD migration to Azure DevOps with SonarQube quality gates and AKS cluster management.</div>
+            </td>
+            <td><span class="proj-duration">10 months</span></td>
+            <td>
+              <div class="proj-chips">
+                <span class="chip">Azure DevOps</span><span class="chip">SonarQube</span>
+                <span class="chip">AKS</span><span class="chip">Kafka</span>
+                <span class="chip">ZooKeeper</span><span class="chip">Prometheus</span>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td><span class="proj-num">03.</span></td>
+            <td>
+              <div class="proj-name">Silver Bullet</div>
+              <div class="proj-summary">Digital Identity Verification — AWS API Gateway with request validation, throttling, Karpenter-driven node provisioning, and zero-downtime rollback strategies.</div>
+            </td>
+            <td><span class="proj-duration">6 months</span></td>
+            <td>
+              <div class="proj-chips">
+                <span class="chip">API Gateway</span><span class="chip">Karpenter</span>
+                <span class="chip">EKS</span>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td><span class="proj-num">04.</span></td>
+            <td>
+              <div class="proj-name">XPLOR</div>
+              <div class="proj-summary">Tax Filing Decision Support Tool — Jenkins to Azure DevOps migration, AKS multi-node-pool scaling, and high-throughput Kafka event streaming.</div>
+            </td>
+            <td><span class="proj-duration">12 months</span></td>
+            <td>
+              <div class="proj-chips">
+                <span class="chip">Azure DevOps</span><span class="chip">AKS</span>
+                <span class="chip">Kafka</span><span class="chip">ZooKeeper</span>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="section-wrap">
+    <div class="section-header reveal">
+      <span class="section-number">04</span>
+      <h2>Certifications &amp; Education</h2>
+    </div>
+    <div class="certs-grid reveal">
+      <div class="cert-card">
+        <div class="cert-issuer">Amazon Web Services</div>
+        <div class="cert-name">AWS Certified SysOps Administrator — Associate</div>
+        <div class="cert-status valid">Valid through August 2027</div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-issuer">HashiCorp</div>
+        <div class="cert-name">Terraform Associate</div>
+        <div class="cert-status valid">Certified</div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-issuer">Google Cloud</div>
+        <div class="cert-name">Associate Cloud Engineer</div>
+        <div class="cert-status expired">Valid through March 2025</div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-issuer">Gargi Memorial Institute of Technology</div>
+        <div class="cert-name">B.Tech / B.E. in Engineering</div>
+        <div class="cert-status valid">Graduated 2021</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" style="background: var(--accent);">
+  <div class="section-wrap">
+    <div class="section-header reveal" style="border-bottom-color: rgba(255,255,255,0.2);">
+      <span class="section-number" style="color:rgba(255,255,255,0.4)">05</span>
+      <h2 style="color:#fff;">Get In Touch</h2>
+    </div>
+    <div class="contact-grid reveal">
+      <div>
+        <p class="contact-intro">
+          I'm a DevSecOps and Cloud Engineer with deep expertise in building secure, scalable
+          infrastructure across AWS, Azure, and GCP. If you're looking to strengthen your cloud
+          delivery pipelines or bring DevSecOps practices to your team, let's connect.
+        </p>
+        <div>
+          <div class="contact-item">
+            <div class="c-icon">✉</div>
+            <a href="mailto:suprobhatganguly333@gmail.com">suprobhatganguly333@gmail.com</a>
+          </div>
+          <div class="contact-item">
+            <div class="c-icon">☎</div>
+            <a href="tel:+919123655931">+91 91236 55931</a>
+          </div>
+          <div class="contact-item">
+            <div class="c-icon">📍</div>
+            <span>Pune, Maharashtra, India</span>
+          </div>
+          <div class="contact-item">
+            <div class="c-icon">in</div>
+            <a href="https://www.linkedin.com/in/suprobhat-ganguly-b910b6171/" target="_blank">linkedin.com/in/suprobhat-ganguly</a>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="contact-right-title">Open to new<br/>opportunities</div>
+        <p class="contact-right-sub">
+          Available for full-time roles, contract engagements, or consulting projects
+          in DevSecOps, Cloud Engineering, or Platform Engineering.
+        </p>
+        <div class="avail-row">
+          <div class="avail-dot"></div>
+          Currently available — response within 24 hours
+        </div>
+        <a href="mailto:suprobhatganguly333@gmail.com" class="btn-white">Send a Message →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2025 Suprobhat Ganguly. All rights reserved.</span>
+  <span>DevSecOps Engineer · Pune, India</span>
+</footer>
+
+<script>
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
